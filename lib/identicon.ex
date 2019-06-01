@@ -7,9 +7,23 @@ defmodule Identicon do
   @doc """
     Main function called for this module passing only a string argument.
   """
-  def main(input) do
+  def generate(input) do
     input
     |> hash_input
+    |> pick_color
+  end
+
+  @doc """
+    Given a Identicon.Image struct with hex property, returns a new
+    Identicon.Image struct with color property
+
+  ## Examples
+      iex> struct = %Identicon.Image{hex: [114, 179, 2, 191, 41, 122, 34, 138, 117, 115, 1, 35, 239, 239, 124, 65]}
+      iex> Identicon.pick_color(struct)
+      %Identicon.Image{hex: [114, 179, 2, 191, 41, 122, 34, 138, 117, 115, 1, 35, 239, 239, 124, 65], color: {114, 179, 2}}
+  """
+  def pick_color(%Identicon.Image{hex: [r, g, b | _tail]} = image) do
+    %Identicon.Image{image | color: {r, g, b}}
   end
 
   @doc """
