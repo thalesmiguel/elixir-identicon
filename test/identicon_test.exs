@@ -3,19 +3,26 @@ defmodule IdenticonTest do
   doctest Identicon
 
   describe "hash_input/1" do
-    test "always returns the same hash based on the given string argument" do
-      string_argument = "Banana"
-      first_hash = Identicon.hash_input(string_argument)
-      second_hash = Identicon.hash_input(string_argument)
+    test "returns a Identicon.Image struct" do
+      hash_input = Identicon.hash_input("Banana")
 
-      assert first_hash == second_hash
+      assert Map.has_key?(hash_input, :__struct__)
+      assert hash_input.__struct__ == Identicon.Image
     end
 
-    test "returns different hashes for different string arguments" do
-      first_hash = Identicon.hash_input("Banana")
-      second_hash = Identicon.hash_input("Apple")
+    test "always returns the same struct based on the given string argument" do
+      string_argument = "Banana"
+      first_hash_input = Identicon.hash_input(string_argument)
+      second_hash_input = Identicon.hash_input(string_argument)
 
-      assert first_hash != second_hash
+      assert first_hash_input == second_hash_input
+    end
+
+    test "returns different structes for different string arguments" do
+      first_hash_input = Identicon.hash_input("Banana")
+      second_hash_input = Identicon.hash_input("Apple")
+
+      assert first_hash_input != second_hash_input
     end
   end
 end
