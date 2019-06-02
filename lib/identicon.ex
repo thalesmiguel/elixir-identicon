@@ -12,6 +12,24 @@ defmodule Identicon do
     |> hash_input
     |> pick_color
     |> build_grid
+    |> filter_odd_squares
+  end
+
+  @doc """
+    Filters the given `Identicon.Image` and returns only the odd squares that
+    will be colored on the processed image
+
+  ## Examples
+      iex> struct = %Identicon.Image{grid: [{1, 0}, {2, 1}, {3, 2}, {4, 3}, {5, 4}]}
+      iex> Identicon.filter_odd_squares(struct)
+      %Identicon.Image{grid: [{2, 1}, {4, 3}]}
+  """
+  def filter_odd_squares(%Identicon.Image{grid: grid} = image) do
+    grid = Enum.filter grid, fn({code, _index}) ->
+      rem(code, 2) == 0
+    end
+
+    %Identicon.Image{image | grid: grid}
   end
 
   @doc """
