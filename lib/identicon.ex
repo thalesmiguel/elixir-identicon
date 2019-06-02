@@ -13,6 +13,39 @@ defmodule Identicon do
     |> pick_color
     |> build_grid
     |> filter_odd_squares
+    |> build_pixel_map
+  end
+
+  @doc """
+    Given a `Identicon.Image` struct with grid property, returns a new
+    `Identicon.Image` struct with pixel_map property
+
+  ## Examples
+      iex> struct = %Identicon.Image{grid: [{114, 0}, {179, 1}, {2, 2}, {179, 3}, {114, 4}]}
+      iex> Identicon.build_pixel_map(struct)
+      %Identicon.Image{
+        grid: [{114, 0}, {179, 1}, {2, 2}, {179, 3}, {114, 4}],
+        pixel_map: [
+          {{0, 0}, {50, 50}},
+          {{50, 0}, {100, 50}},
+          {{100, 0}, {150, 50}},
+          {{150, 0}, {200, 50}},
+          {{200, 0}, {250, 50}}
+        ]
+      }
+  """
+  def build_pixel_map(%Identicon.Image{grid: grid} = image) do
+    pixel_map = Enum.map grid, fn({_code, index}) ->
+      horizontal = rem(index, 5) * 50
+      vertical = div(index, 5) * 50
+
+      top_lef = {horizontal, vertical}
+      bottom_right = {horizontal + 50, vertical + 50}
+
+      {top_lef, bottom_right}
+    end
+
+    %Identicon.Image{image | pixel_map: pixel_map}
   end
 
   @doc """
