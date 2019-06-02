@@ -3,5 +3,5 @@ defmodule Identicon.Image do
     Struct that supports the creation of a new Identicon Image.
   """
 
-  defstruct hex: nil, color: nil
+  defstruct hex: nil, color: nil, grid: nil
 end
