@@ -14,8 +14,8 @@ defmodule Identicon do
   end
 
   @doc """
-    Given a Identicon.Image struct with hex property, returns a new
-    Identicon.Image struct with color property
+    Given a `Identicon.Image` struct with hex property, returns a new
+    `Identicon.Image` struct with color property
 
   ## Examples
       iex> struct = %Identicon.Image{hex: [114, 179, 2, 191, 41, 122, 34, 138, 117, 115, 1, 35, 239, 239, 124, 65]}
@@ -27,7 +27,7 @@ defmodule Identicon do
   end
 
   @doc """
-    Given a string input, returns a Identicon.Image struct with a hex property
+    Given a string input, returns a `Identicon.Image` struct with a hex property
     containing a hash of 16 elements representing the argument.
 
   ## Examples
